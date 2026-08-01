@@ -11,26 +11,22 @@ automatically by Mason or compiled on demand.
 
 ### Required
 
-| Tool | Why | macOS | Ubuntu/Debian | Void Linux |
-|------|-----|-------|---------------|------------|
-| [Neovim](https://github.com/neovim/neovim) >= 0.12 | Runtime (uses `vim.pack`, `vim.lsp.enable`) | `brew install neovim` | `sudo apt install neovim` | `sudo xbps-install neovim` |
-| `git` | Plugin fetching, gitsigns, fugitive | `brew install git` | `sudo apt install git` | `sudo xbps-install git` |
-| C compiler (`cc`/`gcc`) | Treesitter parser compilation, telescope-fzf-native build | `brew install gcc` | `sudo apt install build-essential` | `sudo xbps-install gcc` |
-| `make` | telescope-fzf-native build | `brew install make` | `sudo apt install make` | `sudo xbps-install make` |
-| Node.js + npm | JS/TS/CSS/Angular/HTML LSP servers, prettier, eslint_d | `brew install node` | `sudo apt install nodejs npm` | `sudo xbps-install nodejs` |
-| [ripgrep](https://github.com/BurntSushi/ripgrep) | telescope live_grep, grug-far | `brew install ripgrep` | `sudo apt install ripgrep` | `sudo xbps-install ripgrep` |
-| [Nerd Font](https://www.nerdfonts.com/) | Icons in statusline, bufferline, etc. | Download and set as terminal font (e.g. JetBrainsMono Nerd Font) | same |
+- [Neovim](https://github.com/neovim/neovim) >= 0.12
+- `git`
+- C compiler (`cc` / `gcc`)
+- `make`
+- Node.js + npm
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- A [Nerd Font](https://www.nerdfonts.com/) set as your terminal font (icons)
 
 ### Optional but recommended
 
-| Tool | Why |
-|------|-----|
-| `fd` | Faster telescope `find_files` |
-| Go toolchain (`go`) | gopls + goimports (installed lazily on first Go file) |
-| Rust toolchain | Fast fuzzy matcher for blink.cmp (falls back to pure Lua if absent) |
-| `trash-cli` | oil.nvim `delete_to_trash` actually moves files to trash |
-| Claude CLI | [claudecode.nvim](https://github.com/coder/claudecode.nvim) — `curl -fsSL https://claude.ai/install.sh \| bash` |
-| Flutter SDK | [flutter-tools.nvim](https://flutter.dev/docs/get-started/install) — Dart/Flutter support, deferred until a `.dart` file is opened |
+- `fd` — faster telescope `find_files`
+- Go toolchain (`go`) — gopls + goimports (installed lazily on first Go file)
+- Rust toolchain — fast fuzzy matcher for blink.cmp (falls back to Lua if absent)
+- `trash-cli` — oil.nvim `delete_to_trash` actually moves files to trash
+- Claude CLI — [claudecode.nvim](https://github.com/coder/claudecode.nvim)
+- Flutter SDK — [flutter-tools.nvim](https://flutter.dev/docs/get-started/install), deferred until a `.dart` file is opened
 
 ## Installation
 
