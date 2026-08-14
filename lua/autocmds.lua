@@ -54,11 +54,3 @@ autocmd('SwapExists', {
     end
   end,
 })
-
--- Claude Code: use TreeAdd in file explorer filetypes
-autocmd('FileType', {
-  pattern = { 'NvimTree', 'neo-tree', 'oil', 'minifiles', 'netrw' },
-  callback = function()
-    vim.keymap.set('n', '<leader>as', '<cmd>ClaudeCodeTreeAdd<cr>', { buffer = true, desc = 'Add file to Claude' })
-  end,
-})

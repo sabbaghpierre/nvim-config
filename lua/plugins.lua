@@ -10,7 +10,6 @@
 --     - fd                     (telescope find_files, optional but recommended)
 --     - rust toolchain         (blink.cmp fuzzy matcher, optional — falls back to Lua)
 --     - trash-cli or similar   (oil.nvim delete_to_trash)
---     - claude CLI             (claudecode.nvim — install: curl -fsSL https://claude.ai/install.sh | bash)
 --     - flutter SDK            (flutter-tools.nvim — https://flutter.dev/docs/get-started/install)
 --
 --   Mason auto-installs these LSP servers / formatters / linters:
@@ -101,11 +100,6 @@ vim.pack.add({
   { src = "https://github.com/wa11breaker/flutter-bloc.nvim" },
   { src = "https://github.com/nvimtools/none-ls.nvim" },
 
-  -- Claude Code
-  -- requires: claude CLI — install with: curl -fsSL https://claude.ai/install.sh | bash
-  { src = "https://github.com/coder/claudecode.nvim" },
-  { src = "https://github.com/folke/snacks.nvim" },
-
   --LiveServer
   { src = "https://git.barrettruth.com/barrettruth/live-server.nvim" },
 })
@@ -150,7 +144,6 @@ require('which-key').setup({
     { '<leader>f', group = '[F]ile' },
     { '<leader>F', group = '[F]lutter' },
     { '<leader>sa', group = '[S]earch [A]nd Replace' },
-    { '<leader>a', group = '[A]I / Claude' },
   },
 })
 
@@ -547,14 +540,4 @@ vim.api.nvim_create_autocmd('FileType', {
       },
     })
   end,
-})
-
-----------------------------------------------------------------------
--- Claude Code
-----------------------------------------------------------------------
-require('claudecode').setup({
-  diff_opts = {
-    open_in_new_tab = true,
-    keep_terminal_focus = true,
-  },
 })

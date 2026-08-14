@@ -25,7 +25,6 @@ automatically by Mason or compiled on demand.
 - Go toolchain (`go`) — gopls + goimports (installed lazily on first Go file)
 - Rust toolchain — fast fuzzy matcher for blink.cmp (falls back to Lua if absent)
 - `trash-cli` — oil.nvim `delete_to_trash` actually moves files to trash
-- Claude CLI — [claudecode.nvim](https://github.com/coder/claudecode.nvim)
 - Flutter SDK — [flutter-tools.nvim](https://flutter.dev/docs/get-started/install), deferred until a `.dart` file is opened
 
 ## Installation

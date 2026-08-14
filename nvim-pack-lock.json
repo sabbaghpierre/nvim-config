@@ -17,10 +17,6 @@
       "rev": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3",
       "src": "git@github.com:/akinsho/bufferline.nvim"
     },
-    "claudecode.nvim": {
-      "rev": "432121f0f5b9bda041030d1e9e83b7ba3a93dd8f",
-      "src": "git@github.com:/coder/claudecode.nvim"
-    },
     "codediff.nvim": {
       "rev": "832f1ecc5f8b15a44cf7537e31d3266d657775b1",
       "src": "git@github.com:/esmuellert/codediff.nvim"
@@ -48,6 +44,10 @@
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "git@github.com:/rafamadriz/friendly-snippets"
+    },
+    "fyler.nvim": {
+      "rev": "e87911e6c21d099225063f5aa672e00f6dbb5976",
+      "src": "git@github.com:/A7Lavinraj/fyler.nvim"
     },
     "gitsigns.nvim": {
       "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
@@ -80,6 +80,10 @@
     "mini.nvim": {
       "rev": "418ef4930ddabe80f449c6f1323f8b6abb172d1c",
       "src": "git@github.com:/echasnovski/mini.nvim"
+    },
+    "minifugit.nvim": {
+      "rev": "b3a75696255b163768faf92647982aa86b3ccfd2",
+      "src": "git@github.com:/vieitesss/minifugit.nvim"
     },
     "multicursor.nvim": {
       "rev": "704b99f10a72cc05d370cfeb294ff83412a8ab55",
@@ -141,10 +145,6 @@
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "git@github.com:/nvim-lua/plenary.nvim"
     },
-    "snacks.nvim": {
-      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
-      "src": "git@github.com:/folke/snacks.nvim"
-    },
     "telescope-fzf-native.nvim": {
       "rev": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c",
       "src": "git@github.com:/nvim-telescope/telescope-fzf-native.nvim"
@@ -164,6 +164,10 @@
     "tokyonight.nvim": {
       "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
       "src": "git@github.com:/folke/tokyonight.nvim"
+    },
+    "trouble.nvim": {
+      "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
+      "src": "git@github.com:/folke/trouble.nvim"
     },
     "vim-fugitive": {
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",

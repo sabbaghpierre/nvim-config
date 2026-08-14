@@ -127,19 +127,6 @@ keymap('n', '<leader>FR', '<cmd>FlutterRestart<CR>', { desc = '[F]lutter [R]esta
 keymap('n', '<leader>Ft', '<cmd>FlutterLogToggle<CR>', { desc = '[F]lutter Log [T]oggle' })
 
 ----------------------------------------------------------------------
--- Claude Code
-----------------------------------------------------------------------
-keymap('n', '<leader>ac', '<cmd>ClaudeCode<cr>', { desc = 'Toggle Claude' })
-keymap('n', '<leader>af', '<cmd>ClaudeCodeFocus<cr>', { desc = 'Focus Claude' })
-keymap('n', '<leader>ar', '<cmd>ClaudeCode --resume<cr>', { desc = 'Resume Claude' })
-keymap('n', '<leader>aC', '<cmd>ClaudeCode --continue<cr>', { desc = 'Continue Claude' })
-keymap('n', '<leader>am', '<cmd>ClaudeCodeSelectModel<cr>', { desc = 'Select Claude model' })
-keymap('n', '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', { desc = 'Add current buffer' })
-keymap('v', '<leader>as', '<cmd>ClaudeCodeSend<cr>', { desc = 'Send to Claude' })
-keymap('n', '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', { desc = 'Accept diff' })
-keymap('n', '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', { desc = 'Deny diff' })
-
-----------------------------------------------------------------------
 -- LiveServer
 ----------------------------------------------------------------------
 keymap('n', '<leader>ls', '<cmd>LiveServerStart<cr>', { desc = 'Live Server Start' })
