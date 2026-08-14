@@ -26,7 +26,6 @@
 
 vim.pack.add({
   -- Colorscheme
-  { src = "https://github.com/ankushbhagats/pastel.nvim" },
   { src = "https://github.com/folke/tokyonight.nvim" },
 
   -- UI
@@ -110,8 +109,6 @@ vim.pack.add({
 require('tokyonight').setup({
   styles = { comments = { italic = false } },
 })
-require('pastel').setup({})
--- vim.cmd.colorscheme('pasteldark')
 vim.cmd.colorscheme('tokyonight')
 
 ----------------------------------------------------------------------

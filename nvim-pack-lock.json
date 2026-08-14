@@ -45,10 +45,6 @@
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "git@github.com:/rafamadriz/friendly-snippets"
     },
-    "fyler.nvim": {
-      "rev": "e87911e6c21d099225063f5aa672e00f6dbb5976",
-      "src": "git@github.com:/A7Lavinraj/fyler.nvim"
-    },
     "gitsigns.nvim": {
       "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
       "src": "git@github.com:/lewis6991/gitsigns.nvim"
@@ -81,17 +77,9 @@
       "rev": "418ef4930ddabe80f449c6f1323f8b6abb172d1c",
       "src": "git@github.com:/echasnovski/mini.nvim"
     },
-    "minifugit.nvim": {
-      "rev": "b3a75696255b163768faf92647982aa86b3ccfd2",
-      "src": "git@github.com:/vieitesss/minifugit.nvim"
-    },
     "multicursor.nvim": {
       "rev": "704b99f10a72cc05d370cfeb294ff83412a8ab55",
       "src": "git@github.com:/jake-stewart/multicursor.nvim"
-    },
-    "neominimap.nvim": {
-      "rev": "0676085d898019f06044923934e38663f5efa290",
-      "src": "https://github.com/Isrothy/neominimap.nvim"
     },
     "none-ls.nvim": {
       "rev": "899e93f9f10251d7220b188eba1b837c0ba27927",
@@ -117,10 +105,6 @@
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "git@github.com:/nvim-treesitter/nvim-treesitter"
     },
-    "nvim-treesitter-textobjects": {
-      "rev": "93d60a475f0b08a8eceb99255863977d3a25f310",
-      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
-    },
     "nvim-ts-autotag": {
       "rev": "88c1453db4ba7dd24131086fe51fdf74e587d275",
       "src": "git@github.com:/windwp/nvim-ts-autotag"
@@ -136,10 +120,6 @@
     "oil.nvim": {
       "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
       "src": "git@github.com:/stevearc/oil.nvim"
-    },
-    "pastel.nvim": {
-      "rev": "c2423b7c391cf49c8eab39a6e0e3770a49e01f22",
-      "src": "git@github.com:/ankushbhagats/pastel.nvim"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
@@ -176,10 +156,6 @@
     "vim-sleuth": {
       "rev": "be69bff86754b1aa5adcbb527d7fcd1635a84080",
       "src": "git@github.com:/tpope/vim-sleuth"
-    },
-    "vim-visual-multi": {
-      "rev": "a6975e7c1ee157615bbc80fc25e4392f71c344d4",
-      "src": "git@github.com:/mg979/vim-visual-multi"
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
