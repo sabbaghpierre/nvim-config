@@ -363,6 +363,23 @@ require('gitsigns').setup({
 
 require('codediff').setup({ char_brightness = 0.95 })
 
+-- codediff.nvim pushes its codediff:// virtual buffers into LSP servers for
+-- semantic-token highlighting; strict servers like dartls reject non-file URIs
+-- ("URI scheme 'codediff' is not supported"). Bypass that path for such servers;
+-- revision buffers still get TreeSitter highlighting.
+do
+  local sem = require('codediff.ui.semantic_tokens')
+  local orig = sem.apply_semantic_tokens
+  sem.apply_semantic_tokens = function(left_buf, right_buf)
+    for _, c in ipairs(vim.lsp.get_clients({ bufnr = right_buf })) do
+      if c.server_capabilities.semanticTokensProvider and c.name == 'dartls' then
+        return false
+      end
+    end
+    return orig(left_buf, right_buf)
+  end
+end
+
 ----------------------------------------------------------------------
 -- File Management (Oil)
 ----------------------------------------------------------------------
