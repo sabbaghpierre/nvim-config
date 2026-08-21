@@ -166,6 +166,17 @@ require('mini.ai').setup({ n_lines = 500 })
 require('mini.surround').setup()
 
 ----------------------------------------------------------------------
+-- Smooth scrolling
+----------------------------------------------------------------------
+-- Scroll animation only (cursor/fold animations intentionally off)
+require('mini.animate').setup({
+  scroll = {
+    -- Closest builtin to neoscroll's 'sine' easing
+    timing = require('mini.animate').gen_timing.quadratic({ duration = 100, unit = 'total' }),
+  },
+})
+
+----------------------------------------------------------------------
 -- Telescope
 ----------------------------------------------------------------------
 require('telescope').setup({
