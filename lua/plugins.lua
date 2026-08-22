@@ -170,6 +170,7 @@ require('mini.surround').setup()
 ----------------------------------------------------------------------
 -- Scroll animation only (cursor/fold animations intentionally off)
 require('mini.animate').setup({
+  cursor = { enable = false },
   scroll = {
     -- Closest builtin to neoscroll's 'sine' easing
     timing = require('mini.animate').gen_timing.quadratic({ duration = 100, unit = 'total' }),
