@@ -40,6 +40,9 @@ vim.pack.add({
   -- Mini modules (statusline, ai, surround)
   { src = "https://github.com/echasnovski/mini.nvim" },
 
+  -- Smooth scrolling
+  { src = "https://github.com/karb94/neoscroll.nvim" },
+
   -- Telescope                                                       -- requires: ripgrep, fd (optional)
   { src = "https://github.com/nvim-telescope/telescope.nvim" },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
@@ -167,16 +170,24 @@ require('mini.ai').setup({ n_lines = 500 })
 require('mini.surround').setup()
 
 ----------------------------------------------------------------------
--- Smooth scrolling
+-- Smooth scrolling (neoscroll)
 ----------------------------------------------------------------------
--- Scroll animation only (cursor/fold animations intentionally off)
-require('mini.animate').setup({
-  cursor = { enable = false },
-  scroll = {
-    -- Closest builtin to neoscroll's 'sine' easing
-    timing = require('mini.animate').gen_timing.quadratic({ duration = 100, unit = 'total' }),
-  },
+require('neoscroll').setup({
+  hide_cursor = true,
+  easing = 'sine',
+  -- <C-d>/<C-u> get custom full-window-height mappings below
+  mappings = { '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb' },
 })
+
+-- <C-d>/<C-u> scroll by full window height, 180ms
+local neoscroll = require('neoscroll')
+local modes = { 'n', 'v', 'x' }
+vim.keymap.set(modes, '<C-d>', function()
+  neoscroll.scroll(vim.api.nvim_win_get_height(0), { duration = 180 })
+end)
+vim.keymap.set(modes, '<C-u>', function()
+  neoscroll.scroll(-vim.api.nvim_win_get_height(0), { duration = 180 })
+end)
 
 ----------------------------------------------------------------------
 -- Telescope
