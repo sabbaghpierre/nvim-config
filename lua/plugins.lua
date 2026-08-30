@@ -70,7 +70,7 @@ vim.pack.add({
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/tpope/vim-fugitive" },
   { src = "https://github.com/esmuellert/codediff.nvim" },
-  { src = "https://github.com/akinsho/git-conflict.nvim" },
+
 
   -- File management                                                 -- requires: trash-cli (for delete_to_trash)
   { src = "https://github.com/stevearc/oil.nvim" },
@@ -112,6 +112,12 @@ vim.pack.add({
 ----------------------------------------------------------------------
 require('tokyonight').setup({
   styles = { comments = { italic = false } },
+  on_highlights = function(hl, c)
+    hl.LineNr       = { fg = c.fg_dark }
+    hl.CursorLineNr = { fg = c.blue, bold = true }
+    hl.LineNrAbove  = { fg = c.fg_dark }
+    hl.LineNrBelow  = { fg = c.fg_dark }
+  end,
 })
 vim.cmd.colorscheme('tokyonight')
 
@@ -386,42 +392,6 @@ require('gitsigns').setup({
 })
 
 require('codediff').setup({ char_brightness = 0.95 })
-
-require('git-conflict').setup({
-  default_mappings = true,
-  default_commands = true,
-})
-
--- Conflict keymaps are buffer-local and only exist while a conflict is active:
--- created on GitConflictDetected, removed on GitConflictResolved.
-do
-  local function buf_map(bufnr, lhs, cmd, desc)
-    vim.keymap.set('n', lhs, '<cmd>' .. cmd .. '<CR>', { buffer = bufnr, desc = desc })
-  end
-
-  vim.api.nvim_create_autocmd('User', {
-    pattern = 'GitConflictDetected',
-    callback = function(args)
-      local b = args.buf
-      buf_map(b, '<leader>gco', 'GitConflictChooseOurs', 'Git [C]onflict: choose [O]urs')
-      buf_map(b, '<leader>gct', 'GitConflictChooseTheirs', 'Git [C]onflict: choose [T]heirs')
-      buf_map(b, '<leader>gcb', 'GitConflictChooseBoth', 'Git [C]onflict: choose [B]oth')
-      buf_map(b, '<leader>gc0', 'GitConflictChooseNone', 'Git [C]onflict: choose [N]one')
-      buf_map(b, '<leader>gcn', 'GitConflictNextConflict', 'Git [C]onflict: next')
-      buf_map(b, '<leader>gcp', 'GitConflictPrevConflict', 'Git [C]onflict: previous')
-      buf_map(b, '<leader>gcq', 'GitConflictListQf', 'Git [C]onflict: list in quickfix')
-    end,
-  })
-
-  vim.api.nvim_create_autocmd('User', {
-    pattern = 'GitConflictResolved',
-    callback = function(args)
-      for _, lhs in ipairs({ 'gco', 'gct', 'gcb', 'gc0', 'gcn', 'gcp', 'gcq' }) do
-        pcall(vim.keymap.del, 'n', '<leader>' .. lhs, { buffer = args.buf })
-      end
-    end,
-  })
-end
 
 -- codediff.nvim pushes its codediff:// virtual buffers into LSP servers for
 -- semantic-token highlighting; strict servers like dartls reject non-file URIs
