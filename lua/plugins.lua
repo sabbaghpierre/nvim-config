@@ -113,6 +113,7 @@ vim.pack.add({
 require('tokyonight').setup({
   styles = { comments = { italic = false } },
   on_highlights = function(hl, c)
+    hl.Comment      = { fg = '#6a739d' }
     hl.LineNr       = { fg = c.fg_dark }
     hl.CursorLineNr = { fg = c.blue, bold = true }
     hl.LineNrAbove  = { fg = c.fg_dark }
