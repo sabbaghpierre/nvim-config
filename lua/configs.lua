@@ -61,5 +61,3 @@ vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 vim.schedule(function()
   opt.clipboard = 'unnamedplus'
 end)
-
-vim.cmd.filetype('plugin indent on')
