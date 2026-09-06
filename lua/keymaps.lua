@@ -125,7 +125,6 @@ keymap('n', '<leader>cd', function()
     vim.cmd('DiffviewOpen')
   end
 end, { desc = 'Toggle Visual Diff' })
-keymap('n', '<leader>cm', '<cmd>DiffviewOpen<CR>', { desc = 'Resolve Merge Conflicts' })
 
 keymap('n', '<leader>gg', function()
   if vim.bo.filetype == 'fugitive' then
