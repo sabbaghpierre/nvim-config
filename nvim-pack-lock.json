@@ -57,9 +57,9 @@
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "git@github.com:/folke/lazydev.nvim"
     },
-    "live-server.nvim": {
-      "rev": "f1a2defb7bc3bfc37bcb455fafdf6d61113d71c8",
-      "src": "https://git.barrettruth.com/barrettruth/live-server.nvim"
+    "live-preview.nvim": {
+      "rev": "a6307fa340ed7c0d96f5c567afc8c991aad94ce0",
+      "src": "https://github.com/brianhuster/live-preview.nvim"
     },
     "lualine.nvim": {
       "rev": "221ce6b2d999187044529f49da6554a92f740a96",

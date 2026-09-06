@@ -105,8 +105,8 @@ vim.pack.add({
   { src = "https://github.com/wa11breaker/flutter-bloc.nvim" },
   { src = "https://github.com/nvimtools/none-ls.nvim" },
 
-  --LiveServer
-  { src = "https://git.barrettruth.com/barrettruth/live-server.nvim" },
+  --LivePreview (pure Lua, no Node runtime)
+  { src = "https://github.com/brianhuster/live-preview.nvim" },
 })
 
 ----------------------------------------------------------------------
@@ -152,6 +152,7 @@ require('which-key').setup({
     { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
     { '<leader>b', group = '[B]uffer' },
     { '<leader>f', group = '[F]ile' },
+    { '<leader>l', group = '[L]ive' },
     { '<leader>p', group = '[P]ack' },
     { '<leader>F', group = '[F]lutter' },
     { '<leader>sa', group = '[S]earch [A]nd Replace' },
@@ -562,6 +563,14 @@ require('auto-session').setup({
 require('betterTerm').setup({
   position = 'bot',
   size = 20,
+})
+
+----------------------------------------------------------------------
+-- Live preview (port 8080 to match old live-server setup)
+----------------------------------------------------------------------
+require('livepreview.config').set({
+  port = 8080,
+  picker = 'telescope',
 })
 
 ----------------------------------------------------------------------

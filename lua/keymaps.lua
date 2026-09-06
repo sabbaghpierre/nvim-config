@@ -127,10 +127,10 @@ keymap('n', '<leader>FR', '<cmd>FlutterRestart<CR>', { desc = '[F]lutter [R]esta
 keymap('n', '<leader>Ft', '<cmd>FlutterLogToggle<CR>', { desc = '[F]lutter Log [T]oggle' })
 
 ----------------------------------------------------------------------
--- LiveServer
+-- LivePreview
 ----------------------------------------------------------------------
-keymap('n', '<leader>ls', '<cmd>LiveServerStart<cr>', { desc = 'Live Server Start' })
-keymap('n', '<leader>lS', '<cmd>LiveServerStop<cr>', { desc = 'Live Server Stop' })
+keymap('n', '<leader>ls', '<cmd>LivePreview start<cr>', { desc = 'Live Preview Start' })
+keymap('n', '<leader>lS', '<cmd>LivePreview close<cr>', { desc = 'Live Preview Stop' })
 
 
 ----------------------------------------------------------------------
