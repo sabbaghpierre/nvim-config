@@ -3,7 +3,7 @@ local keymap = vim.keymap.set
 ----------------------------------------------------------------------
 -- General
 ----------------------------------------------------------------------
-keymap('n', '<Esc>', '<cmd>nohlsearch<CR>')
+keymap('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search highlight' })
 keymap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 keymap('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
@@ -118,6 +118,10 @@ end, { desc = '[S]earch [A]nd [R]eplace (grug-far)' })
 -- Git (vim-fugitive & diffview)
 ----------------------------------------------------------------------
 keymap('n', '<leader>cd', function()
+  if vim.fn.system({ 'git', 'rev-parse', '--is-inside-work-tree' }):match('true') == nil then
+    vim.notify('Not in a git repository', vim.log.levels.WARN)
+    return
+  end
   local ok, lib = pcall(require, 'diffview.lib')
   if ok and lib.get_current_view() then
     vim.cmd('DiffviewClose')
@@ -126,21 +130,42 @@ keymap('n', '<leader>cd', function()
   end
 end, { desc = 'Toggle Visual Diff' })
 
+local function in_git()
+  if vim.fn.system({ 'git', 'rev-parse', '--is-inside-work-tree' }):match('true') then
+    return true
+  end
+  vim.notify('Not in a git repository', vim.log.levels.WARN)
+  return false
+end
 keymap('n', '<leader>gg', function()
   if vim.bo.filetype == 'fugitive' then
     vim.cmd('close')
-  else
+  elseif in_git() then
     vim.cmd('Git')
   end
 end, { desc = '[G]it status' })
-keymap('n', '<leader>gs', '<cmd>Git stash<CR>', { desc = '[G]it [S]tash' })
-keymap('n', '<leader>gc', '<cmd>Git commit<CR>', { desc = '[G]it [C]ommit' })
-keymap('n', '<leader>gp', '<cmd>Git push<CR>', { desc = '[G]it [P]ush' })
-keymap('n', '<leader>gl', '<cmd>Git pull<CR>', { desc = '[G]it Pul[l]' })
-keymap('n', '<leader>gd', '<cmd>Gdiffsplit<CR>', { desc = '[G]it [D]iff file' })
-keymap('n', '<leader>gS', '<cmd>Git stash pop<CR>', { desc = '[G]it [S]tash Pop' })
+keymap('n', '<leader>gs', function()
+  if in_git() then vim.cmd('Git stash') end
+end, { desc = '[G]it [S]tash' })
+keymap('n', '<leader>gc', function()
+  if in_git() then vim.cmd('Git commit') end
+end, { desc = '[G]it [C]ommit' })
+keymap('n', '<leader>gp', function()
+  if in_git() then vim.cmd('Git push') end
+end, { desc = '[G]it [P]ush' })
+keymap('n', '<leader>gl', function()
+  if in_git() then vim.cmd('Git pull') end
+end, { desc = '[G]it Pul[l]' })
+keymap('n', '<leader>gd', function()
+  if in_git() then vim.cmd('Gdiffsplit') end
+end, { desc = '[G]it [D]iff file' })
+keymap('n', '<leader>gS', function()
+  if in_git() then vim.cmd('Git stash pop') end
+end, { desc = '[G]it [S]tash Pop' })
 keymap('n', '<leader>gb', function()
-  builtin.git_branches({ initial_mode = 'normal' })
+  if in_git() then
+    builtin.git_branches({ initial_mode = 'normal' })
+  end
 end, { desc = '[G]it [B]ranches' })
 
 ----------------------------------------------------------------------

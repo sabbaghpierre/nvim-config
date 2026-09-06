@@ -205,10 +205,10 @@ local neoscroll = require('neoscroll')
 local modes = { 'n', 'v', 'x' }
 vim.keymap.set(modes, '<C-d>', function()
   neoscroll.scroll(vim.api.nvim_win_get_height(0), { duration = 180 })
-end)
+end, { desc = 'Scroll full window down' })
 vim.keymap.set(modes, '<C-u>', function()
   neoscroll.scroll(-vim.api.nvim_win_get_height(0), { duration = 180 })
-end)
+end, { desc = 'Scroll full window up' })
 
 ----------------------------------------------------------------------
 -- Telescope
