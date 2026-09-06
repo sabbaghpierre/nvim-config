@@ -41,6 +41,11 @@ vim.diagnostic.config({
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
   callback = function(event)
+    -- Virtual buffers (fugitive://, diffview://, …) are not real files:
+    -- strict servers reject non-file URIs, so register nothing for them.
+    if vim.api.nvim_buf_get_name(event.buf):match('^%w+://') then
+      return
+    end
     local map = function(keys, func, desc, mode)
       mode = mode or 'n'
       vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
