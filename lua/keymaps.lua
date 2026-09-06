@@ -58,6 +58,10 @@ keymap('n', '<Leader>bp', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Previous Buf
 keymap('n', '<Leader>bb', '<cmd>BufferLinePick<CR>', { desc = 'Pick Buffer' })
 keymap('n', '<Leader>bd', function()
   local current = vim.api.nvim_get_current_buf()
+  if vim.bo[current].modified then
+    vim.notify('Buffer has unsaved changes — save or discard first', vim.log.levels.WARN)
+    return
+  end
   local next_buf = nil
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     if buf ~= current and vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted and vim.bo[buf].buftype ~= 'terminal' then
