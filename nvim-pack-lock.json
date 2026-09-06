@@ -45,10 +45,6 @@
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "git@github.com:/rafamadriz/friendly-snippets"
     },
-    "git-conflict.nvim": {
-      "rev": "a1badcd070d176172940eb55d9d59029dad1c5a6",
-      "src": "git@github.com:/akinsho/git-conflict.nvim"
-    },
     "gitsigns.nvim": {
       "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
       "src": "git@github.com:/lewis6991/gitsigns.nvim"
@@ -61,14 +57,6 @@
       "rev": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03",
       "src": "git@github.com:/lukas-reineke/indent-blankline.nvim"
     },
-    "kanagawa.nvim": {
-      "rev": "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3",
-      "src": "git@github.com:/rebelot/kanagawa.nvim"
-    },
-    "kanso.nvim": {
-      "rev": "1afbbb449aa0254823dbe1932e3cbb51886ff9fe",
-      "src": "git@github.com:/webhooked/kanso.nvim"
-    },
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "git@github.com:/folke/lazydev.nvim"
@@ -77,6 +65,10 @@
       "rev": "f1a2defb7bc3bfc37bcb455fafdf6d61113d71c8",
       "src": "https://git.barrettruth.com/barrettruth/live-server.nvim"
     },
+    "lualine.nvim": {
+      "rev": "221ce6b2d999187044529f49da6554a92f740a96",
+      "src": "git@github.com:/nvim-lualine/lualine.nvim"
+    },
     "mason-tool-installer.nvim": {
       "rev": "443f1ef8b5e6bf47045cb2217b6f748a223cf7dc",
       "src": "git@github.com:/WhoIsSethDaniel/mason-tool-installer.nvim"
@@ -84,10 +76,6 @@
     "mason.nvim": {
       "rev": "b03fb0f20bc1d43daf558cda981a2be22e73ac42",
       "src": "git@github.com:/mason-org/mason.nvim"
-    },
-    "mini.nvim": {
-      "rev": "418ef4930ddabe80f449c6f1323f8b6abb172d1c",
-      "src": "git@github.com:/echasnovski/mini.nvim"
     },
     "multicursor.nvim": {
       "rev": "704b99f10a72cc05d370cfeb294ff83412a8ab55",
@@ -117,6 +105,11 @@
       "rev": "4b7fbaa239c5db6b36f424a4521ca9f1a401be33",
       "src": "git@github.com:/neovim/nvim-lspconfig"
     },
+    "nvim-surround": {
+      "rev": "2e93e154de9ff326def6480a4358bfc149d5da2c",
+      "src": "git@github.com:/kylechui/nvim-surround",
+      "version": "4.0.0 - 5.0.0"
+    },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "git@github.com:/nvim-treesitter/nvim-treesitter"
@@ -136,10 +129,6 @@
     "oil.nvim": {
       "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
       "src": "git@github.com:/stevearc/oil.nvim"
-    },
-    "oxocarbon.nvim": {
-      "rev": "7cc379b96fcbb4e75c5152906e0fccf81ce46590",
-      "src": "git@github.com:/nyoom-engineering/oxocarbon.nvim"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
@@ -164,10 +153,6 @@
     "tokyonight.nvim": {
       "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
       "src": "git@github.com:/folke/tokyonight.nvim"
-    },
-    "trouble.nvim": {
-      "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
-      "src": "git@github.com:/folke/trouble.nvim"
     },
     "vim-fugitive": {
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",

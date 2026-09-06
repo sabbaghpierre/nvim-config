@@ -37,8 +37,11 @@ vim.pack.add({
   { src = "https://github.com/folke/todo-comments.nvim" },
   { src = "https://github.com/j-hui/fidget.nvim" },
 
-  -- Mini modules (statusline, ai, surround)
-  { src = "https://github.com/echasnovski/mini.nvim" },
+  -- Statusline
+  { src = "https://github.com/nvim-lualine/lualine.nvim" },
+
+  -- Surround (sa/sd/sr, keeps mini.surround muscle memory)
+  { src = "https://github.com/kylechui/nvim-surround", version = vim.version.range('4.x') },
 
   -- Smooth scrolling
   { src = "https://github.com/karb94/neoscroll.nvim" },
@@ -152,6 +155,7 @@ require('which-key').setup({
     { '<leader>f', group = '[F]ile' },
     { '<leader>F', group = '[F]lutter' },
     { '<leader>sa', group = '[S]earch [A]nd Replace' },
+    { '<leader>su', group = '[Su]rround', mode = { 'n', 'x' } },
   },
 })
 
@@ -171,10 +175,20 @@ require('todo-comments').setup({ signs = false })
 require('fidget').setup({})
 
 ----------------------------------------------------------------------
--- Mini modules (ai, surround — statusline is in statusline.lua)
+-- Surround (nvim-surround, sa/sd/sr to match old mini.surround keys)
 ----------------------------------------------------------------------
-require('mini.ai').setup({ n_lines = 500 })
-require('mini.surround').setup()
+vim.g.nvim_surround_no_mappings = true
+require('nvim-surround').setup({})
+vim.keymap.set('n', 'sa', '<Plug>(nvim-surround-normal)', { desc = 'Surround add' })
+vim.keymap.set('n', 'saa', '<Plug>(nvim-surround-normal-cur)', { desc = 'Surround add line' })
+vim.keymap.set('n', 'sd', '<Plug>(nvim-surround-delete)', { desc = 'Surround delete' })
+vim.keymap.set('n', 'sr', '<Plug>(nvim-surround-change)', { desc = 'Surround replace' })
+vim.keymap.set('x', 'S', '<Plug>(nvim-surround-visual)', { desc = 'Surround visual' })
+vim.keymap.set('n', '<leader>sua', '<Plug>(nvim-surround-normal)', { desc = 'Surround add' })
+vim.keymap.set('n', '<leader>suA', '<Plug>(nvim-surround-normal-cur)', { desc = 'Surround add line' })
+vim.keymap.set('n', '<leader>sud', '<Plug>(nvim-surround-delete)', { desc = 'Surround delete' })
+vim.keymap.set('n', '<leader>sur', '<Plug>(nvim-surround-change)', { desc = 'Surround replace' })
+vim.keymap.set('x', '<leader>su', '<Plug>(nvim-surround-visual)', { desc = 'Surround visual' })
 
 ----------------------------------------------------------------------
 -- Smooth scrolling (neoscroll)
