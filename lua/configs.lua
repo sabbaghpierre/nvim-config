@@ -53,7 +53,6 @@ opt.completeopt = { 'menuone', 'popup', 'noinsert' }
 opt.updatetime = 250
 opt.timeoutlen = 300
 opt.scrolloff = 10
-opt.smoothscroll = true
 
 -- Session options (for auto-session)
 vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions'
