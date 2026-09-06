@@ -128,7 +128,7 @@ vim.cmd.colorscheme('tokyonight')
 -- UI Plugins
 ----------------------------------------------------------------------
 require('which-key').setup({
-  delay = 0,
+  delay = 75,
   icons = {
     mappings = vim.g.have_nerd_font,
     keys = vim.g.have_nerd_font and {} or {
