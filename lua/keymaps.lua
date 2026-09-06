@@ -140,13 +140,129 @@ keymap('n', '<leader>ps', '<cmd>lua vim.pack.update()<CR>', { desc = '[P]ack upd
 keymap('n', '<leader>ph', '<cmd>checkhealth vim.pack<CR>', { desc = '[P]ack [H]ealth' })
 keymap('n', '<leader>pd', function()
   local names = {}
+  local src_by_name = {}
   for _, plug in ipairs(vim.pack.get()) do
-    names[#names + 1] = plug.spec.name
+    if plug.active then
+      names[#names + 1] = plug.spec.name
+      src_by_name[plug.spec.name] = plug.spec.src
+    end
   end
   table.sort(names)
-  vim.ui.select(names, { prompt = 'Delete plugin:' }, function(choice)
-    if choice then
-      vim.pack.del({ choice })
-    end
+  vim.ui.select(names, { prompt = 'Remove plugin:' }, function(choice)
+    if not choice then return end
+    -- `names` holds active plugins only, so plain del would refuse:
+    -- go straight to the choices instead of trial-deleting.
+    vim.ui.select({
+      'Full remove (config line, disk, then restart)',
+      'Remove config line only',
+      'Cancel',
+    }, { prompt = choice .. ' is active:' }, function(action)
+      if not action or action == 'Cancel' then return end
+      local src = src_by_name[choice]
+      if not src then
+        vim.notify('No src recorded for ' .. choice, vim.log.levels.ERROR)
+        return
+      end
+      local cfg = vim.fn.stdpath('config') .. '/lua/plugins.lua'
+      local lines = vim.fn.readfile(cfg)
+      local target = '"' .. src .. '"'
+      local idx = nil
+      for i, line in ipairs(lines) do
+        if line:find(target, 1, true) then
+          idx = i
+          break
+        end
+      end
+      if not idx then
+        vim.notify('Pack line not found in plugins.lua', vim.log.levels.ERROR)
+        return
+      end
+      table.remove(lines, idx)
+      if lines[idx - 1] and lines[idx - 1]:match('added via <leader>pa') then
+        table.remove(lines, idx - 1)
+      end
+      if vim.fn.writefile(lines, cfg) ~= 0 then
+        vim.notify('Failed to write plugins.lua', vim.log.levels.ERROR)
+        return
+      end
+      if action == 'Remove config line only' then
+        vim.notify('Removed from plugins.lua — restart, then <leader>pc to clean from disk', vim.log.levels.INFO)
+        return
+      end
+      local ok, err = pcall(vim.pack.del, { choice }, { force = true })
+      if not ok then
+        vim.notify('Delete failed: ' .. tostring(err), vim.log.levels.ERROR)
+        return
+      end
+      if #vim.fn.getbufinfo({ bufmodified = 1 }) > 0 then
+        vim.notify('Plugin removed — save buffers and restart to finish', vim.log.levels.WARN)
+        return
+      end
+      vim.cmd('restart')
+    end)
   end)
 end, { desc = '[P]ack [D]elete plugin' })
+keymap('n', '<leader>pc', function()
+  local orphans = {}
+  for _, plug in ipairs(vim.pack.get()) do
+    if not plug.active then
+      orphans[#orphans + 1] = plug.spec.name
+    end
+  end
+  if #orphans == 0 then
+    vim.notify('No orphan plugins', vim.log.levels.INFO)
+    return
+  end
+  table.sort(orphans)
+  vim.ui.select({ 'Yes, delete' }, {
+    prompt = 'Delete orphans: ' .. table.concat(orphans, ', ') .. '?',
+  }, function(choice)
+    if not choice then return end
+    local ok, err = pcall(vim.pack.del, orphans)
+    if ok then
+      vim.notify('Deleted orphans: ' .. table.concat(orphans, ', '), vim.log.levels.INFO)
+    else
+      vim.notify('Clean failed: ' .. tostring(err), vim.log.levels.ERROR)
+    end
+  end)
+end, { desc = '[P]ack [C]lean orphans' })
+keymap('n', '<leader>pa', function()
+  vim.ui.input({ prompt = 'Plugin src: ' }, function(input)
+    if not input or input:match('^%s*$') then return end
+    local src = vim.trim(input)
+    if src:find('[\"\\]') then
+      vim.notify('Invalid plugin src', vim.log.levels.ERROR)
+      return
+    end
+    local cfg = vim.fn.stdpath('config') .. '/lua/plugins.lua'
+    local lines = vim.fn.readfile(cfg)
+    local close = nil
+    local started = false
+    for i, line in ipairs(lines) do
+      if not started and line:match('vim%.pack%.add%(') then
+        started = true
+      elseif started and line:match('^%s*}%)%s*$') then
+        close = i
+        break
+      end
+    end
+    if not close then
+      vim.notify('vim.pack.add block not found', vim.log.levels.ERROR)
+      return
+    end
+    for _, line in ipairs(lines) do
+      if line:find(src, 1, true) then
+        vim.notify('Already in plugins.lua, installing', vim.log.levels.INFO)
+        vim.pack.add({ src })
+        return
+      end
+    end
+    table.insert(lines, close, '  { src = "' .. src .. '" },')
+    table.insert(lines, close, '  -- added via <leader>pa (move to a category as needed)')
+    if vim.fn.writefile(lines, cfg) ~= 0 then
+      vim.notify('Failed to write plugins.lua', vim.log.levels.ERROR)
+      return
+    end
+    vim.pack.add({ src })
+  end)
+end, { desc = '[P]ack [A]dd plugin' })
