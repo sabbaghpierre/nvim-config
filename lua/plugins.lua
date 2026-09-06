@@ -20,7 +20,7 @@
 --   After first install:
 --     1. Run `:Mason` to verify all tools installed successfully
 --     2. Build telescope-fzf-native: find the plugin dir and run `make`
---        (usually in stdpath("data")/site/pack/*/start/telescope-fzf-native.nvim/)
+--        (usually in stdpath("data")/site/pack/*/opt/telescope-fzf-native.nvim/)
 --     3. Treesitter parsers compile automatically; ensure a C compiler is available
 -- ============================================================================
 
