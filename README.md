@@ -49,19 +49,21 @@ nvim
    filtering seems slow, rebuild it:
 
    ```sh
-   make -C "$(nvim --headless -c 'echo stdpath("data")' -c 'qa' 2>/dev/null)" \
-     site/pack/*/start/telescope-fzf-native.nvim
+    make -C "$(nvim --headless -c 'echo stdpath("data")' -c 'qa' 2>/dev/null)" \
+      site/pack/*/opt/telescope-fzf-native.nvim
    ```
 
    (Or just let it build on first use — it's invoked with `pcall`.)
 
 ## Updating
 
-```vim
-<leader>ps
-```
-
-or `:UpdateRemotePlugins`-equivalent via `vim.pack.update()`.
+| Keys | Action |
+|------|--------|
+| `<leader>ps` | Update plugins (`vim.pack.update()`) |
+| `<leader>ph` | Plugin health (`:checkhealth vim.pack`) |
+| `<leader>pa` | Add a plugin (prompts for src, persists to `plugins.lua`) |
+| `<leader>pd` | Fully remove a configured plugin (config line, disk, restart) |
+| `<leader>pc` | Clean orphan plugins (on disk but not in `plugins.lua`) |
 
 ## Structure
 
@@ -74,7 +76,7 @@ or `:UpdateRemotePlugins`-equivalent via `vim.pack.update()`.
 │   ├── configs.lua       # options (vim.opt)
 │   ├── keymaps.lua       # keymaps (leader is space)
 │   ├── autocmds.lua      # autocommands
-│   ├── statusline.lua    # mini.statusline
+│   ├── statusline.lua    # lualine statusline
 │   └── lsp.lua           # LSP setup, diagnostics, LspAttach keymaps
 └── lsp/                  # vim.lsp.config per-server (lua_ls, gopls, ts_ls, ...)
 ```
