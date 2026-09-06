@@ -137,3 +137,4 @@ keymap('n', '<leader>lS', '<cmd>LiveServerStop<cr>', { desc = 'Live Server Stop'
 -- Plugin updates
 ----------------------------------------------------------------------
 keymap('n', '<leader>ps', '<cmd>lua vim.pack.update()<CR>', { desc = '[P]ack update plugin[s]' })
+keymap('n', '<leader>ph', '<cmd>checkhealth vim.pack<CR>', { desc = '[P]ack [H]ealth' })
