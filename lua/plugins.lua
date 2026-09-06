@@ -272,7 +272,8 @@ require('nvim-treesitter').install({
   'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc',
   'javascript', 'typescript', 'tsx', 'css', 'json', 'scss',
   'yaml', 'toml', 'gitcommit',
-  'dart', 'go',
+  'dart', 'go', 'gomod',
+  'angular',
 })
 vim.treesitter.language.register('html', 'htmlangular')
 
