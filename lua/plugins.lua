@@ -152,6 +152,7 @@ require('which-key').setup({
     { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
     { '<leader>b', group = '[B]uffer' },
     { '<leader>f', group = '[F]ile' },
+    { '<leader>g', group = '[G]it' },
     { '<leader>l', group = '[L]ive' },
     { '<leader>p', group = '[P]ack' },
     { '<leader>F', group = '[F]lutter' },

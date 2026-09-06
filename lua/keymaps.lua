@@ -114,6 +114,29 @@ end, { desc = '[S]earch [A]nd [R]eplace (grug-far)' })
 -- Git (vim-fugitive & codediff)
 ----------------------------------------------------------------------
 keymap('n', '<leader>cd', '<cmd>CodeDiff<cr>', { desc = 'Open Visual Diff' })
+keymap('n', '<leader>cm', function()
+  local ok = pcall(vim.cmd, 'CodeDiff merge ' .. vim.fn.expand('%'))
+  if not ok then
+    vim.cmd('CodeDiff')
+  end
+end, { desc = 'Resolve Merge Conflicts' })
+
+keymap('n', '<leader>gg', function()
+  if vim.bo.filetype == 'fugitive' then
+    vim.cmd('close')
+  else
+    vim.cmd('Git')
+  end
+end, { desc = '[G]it status' })
+keymap('n', '<leader>gs', '<cmd>Git stash<CR>', { desc = '[G]it [S]tash' })
+keymap('n', '<leader>gc', '<cmd>Git commit<CR>', { desc = '[G]it [C]ommit' })
+keymap('n', '<leader>gp', '<cmd>Git push<CR>', { desc = '[G]it [P]ush' })
+keymap('n', '<leader>gl', '<cmd>Git pull<CR>', { desc = '[G]it Pul[l]' })
+keymap('n', '<leader>gd', '<cmd>Gdiffsplit<CR>', { desc = '[G]it [D]iff file' })
+keymap('n', '<leader>gS', '<cmd>Git stash pop<CR>', { desc = '[G]it [S]tash Pop' })
+keymap('n', '<leader>gb', function()
+  builtin.git_branches({ initial_mode = 'normal' })
+end, { desc = '[G]it [B]ranches' })
 
 ----------------------------------------------------------------------
 -- Flutter
