@@ -111,15 +111,17 @@ keymap('n', '<leader>sar', function()
 end, { desc = '[S]earch [A]nd [R]eplace (grug-far)' })
 
 ----------------------------------------------------------------------
--- Git (vim-fugitive & codediff)
+-- Git (vim-fugitive & diffview)
 ----------------------------------------------------------------------
-keymap('n', '<leader>cd', '<cmd>CodeDiff<cr>', { desc = 'Open Visual Diff' })
-keymap('n', '<leader>cm', function()
-  local ok = pcall(vim.cmd, 'CodeDiff merge ' .. vim.fn.expand('%'))
-  if not ok then
-    vim.cmd('CodeDiff')
+keymap('n', '<leader>cd', function()
+  local ok, lib = pcall(require, 'diffview.lib')
+  if ok and lib.get_current_view() then
+    vim.cmd('DiffviewClose')
+  else
+    vim.cmd('DiffviewOpen')
   end
-end, { desc = 'Resolve Merge Conflicts' })
+end, { desc = 'Toggle Visual Diff' })
+keymap('n', '<leader>cm', '<cmd>DiffviewOpen<CR>', { desc = 'Resolve Merge Conflicts' })
 
 keymap('n', '<leader>gg', function()
   if vim.bo.filetype == 'fugitive' then
