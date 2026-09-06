@@ -292,8 +292,6 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- NOTE: nvim-ts-autotag may use old treesitter internals that break on Neovim 0.12.
--- If you get errors on startup, comment out this setup() call and its vim.pack.add entry above.
 require('nvim-ts-autotag').setup({
   opts = {
     enable_close = true,
