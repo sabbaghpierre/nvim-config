@@ -102,7 +102,6 @@ vim.pack.add({
 
   -- Flutter/Dart (setup deferred until a Dart file is opened)       -- requires: flutter SDK
   { src = "https://github.com/nvim-flutter/flutter-tools.nvim" },
-  { src = "https://github.com/stevearc/dressing.nvim" },
   { src = "https://github.com/wa11breaker/flutter-bloc.nvim" },
   { src = "https://github.com/nvimtools/none-ls.nvim" },
 
