@@ -66,8 +66,6 @@ vim.pack.add({
   { src = "https://github.com/mason-org/mason.nvim" },              -- requires: npm, go, etc. depending on which servers
   { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
   { src = "https://github.com/folke/lazydev.nvim" },
-  -- nvim-lspconfig is kept only as an internal dependency for flutter-tools.nvim
-  { src = "https://github.com/neovim/nvim-lspconfig" },
 
   -- Git                                                             -- requires: git
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
