@@ -147,13 +147,22 @@ end, { desc = '[G]it [B]ranches' })
 ----------------------------------------------------------------------
 -- Flutter
 ----------------------------------------------------------------------
-keymap('n', '<leader>Fr', '<cmd>FlutterRun<CR>', { desc = '[F]lutter [R]un' })
-keymap('n', '<leader>Fq', '<cmd>FlutterQuit<CR>', { desc = '[F]lutter [Q]uit' })
-keymap('n', '<leader>Fd', '<cmd>FlutterDevices<CR>', { desc = '[F]lutter [D]evices' })
-keymap('n', '<leader>Fe', '<cmd>FlutterEmulators<CR>', { desc = '[F]lutter [E]mulators' })
-keymap('n', '<leader>Fl', '<cmd>FlutterReload<CR>', { desc = '[F]lutter Re[l]oad' })
-keymap('n', '<leader>FR', '<cmd>FlutterRestart<CR>', { desc = '[F]lutter [R]estart (hot)' })
-keymap('n', '<leader>Ft', '<cmd>FlutterLogToggle<CR>', { desc = '[F]lutter Log [T]oggle' })
+local function flutter_cmd(cmd)
+  return function()
+    if vim.fn.exists(':' .. cmd) ~= 2 then
+      vim.notify('Open a Dart file first to load flutter-tools', vim.log.levels.WARN)
+    else
+      vim.cmd(cmd)
+    end
+  end
+end
+keymap('n', '<leader>Fr', flutter_cmd('FlutterRun'), { desc = '[F]lutter [R]un' })
+keymap('n', '<leader>Fq', flutter_cmd('FlutterQuit'), { desc = '[F]lutter [Q]uit' })
+keymap('n', '<leader>Fd', flutter_cmd('FlutterDevices'), { desc = '[F]lutter [D]evices' })
+keymap('n', '<leader>Fe', flutter_cmd('FlutterEmulators'), { desc = '[F]lutter [E]mulators' })
+keymap('n', '<leader>Fl', flutter_cmd('FlutterReload'), { desc = '[F]lutter Re[l]oad' })
+keymap('n', '<leader>FR', flutter_cmd('FlutterRestart'), { desc = '[F]lutter [R]estart (hot)' })
+keymap('n', '<leader>Ft', flutter_cmd('FlutterLogToggle'), { desc = '[F]lutter Log [T]oggle' })
 
 ----------------------------------------------------------------------
 -- LivePreview
