@@ -528,10 +528,11 @@ require('auto-session').setup({
   suppressed_dirs = { '~/', '~/Downloads', '/' },
   pre_save_cmds = {
     function()
+      pcall(vim.cmd, 'DiffviewClose')
       for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         local ft = vim.bo[buf].filetype
         local bt = vim.bo[buf].buftype
-        if ft == 'oil' or bt == 'terminal' then
+        if ft == 'oil' or ft == 'fugitive' or ft:match('^Diffview') or bt == 'terminal' then
           vim.api.nvim_buf_delete(buf, { force = true })
         end
       end
