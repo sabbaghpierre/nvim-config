@@ -32,6 +32,15 @@ autocmd('BufWritePre', {
   end,
 })
 
+-- Dart: auto-format on save via dart format (conform)
+autocmd('BufWritePre', {
+  pattern = '*.dart',
+  group = augroup('dart-auto-format', { clear = true }),
+  callback = function()
+    require('conform').format({ async = false, lsp_format = 'fallback' })
+  end,
+})
+
 -- Lint on buffer enter, write, and insert leave
 autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
   group = augroup('lint', { clear = true }),

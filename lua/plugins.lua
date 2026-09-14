@@ -559,38 +559,36 @@ require('livepreview.config').set({
 })
 
 ----------------------------------------------------------------------
--- Flutter/Dart (deferred until a Dart file is opened)
+-- Flutter/Dart (config applied eagerly; LSP starts on first .dart via autocmd)
 ----------------------------------------------------------------------
-local flutter_loaded = false
+require('flutter-tools').setup({
+  fvm = false,
+  dev_log = { open_cmd = 'botright 15split' },
+  lsp = {
+    settings = {
+      lineLength = 125,
+      completeFunctionCalls = true,
+      enableSnippets = true,
+    },
+    capabilities = require('blink.cmp').get_lsp_capabilities(),
+  },
+})
+
+require('flutter-bloc').setup({
+  bloc_type = 'default',
+  use_sealed_classes = false,
+  enable_code_actions = true,
+})
+
+-- The flutter-tools ftplugin/dart/init.lua doesn't fire under vim.pack,
+-- so we explicitly start the Dart LSP on first dart file open.
+local _dart_lsp_attached = false
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'dart',
+  once = true,
   callback = function()
-    if flutter_loaded then return end
-    flutter_loaded = true
-
-    require('null-ls').setup({
-      sources = { require('flutter-bloc').code_actions },
-    })
-    require('flutter-bloc').setup({
-      bloc_type = 'default',
-      use_sealed_classes = false,
-      enable_code_actions = true,
-    })
-    require('flutter-tools').setup({
-      dev_log = { open_cmd = 'botright 15split' },
-      lsp = {
-        settings = {
-          dart = {
-            lineLength = 125,
-            completeFunctionCalls = true,
-            enableSnippets = true,
-          },
-        },
-      },
-      formatting = {
-        command = 'dart',
-        args = { 'format', '--line-length', '125' },
-      },
-    })
+    if _dart_lsp_attached then return end
+    _dart_lsp_attached = true
+    require('flutter-tools.lsp').attach()
   end,
 })
