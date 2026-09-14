@@ -12,6 +12,6 @@
 ---@type vim.lsp.Config
 return {
   cmd = { 'ngserver', '--stdio' },
-  filetypes = { 'typescript', 'html', 'htmlangular' },
+  filetypes = { 'html', 'htmlangular' },
   root_markers = { 'angular.json', 'project.json' },
 }
