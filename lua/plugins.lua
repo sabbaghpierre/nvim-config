@@ -485,13 +485,18 @@ vim.api.nvim_set_hl(0, 'MultiCursorDisabledSign', { link = 'SignColumn' })
 -- Formatting & Linting
 ----------------------------------------------------------------------
 require('conform').setup({
-  notify_on_error = false,
+  notify_on_error = true,
   formatters_by_ft = {
     lua = { 'stylua' },
     javascript = { 'prettier' },
     javascriptreact = { 'prettier' },
     typescript = { 'prettier' },
     typescriptreact = { 'prettier' },
+    html = { 'prettier' },
+    htmlangular = { 'prettier' },
+    css = { 'prettier' },
+    scss = { 'prettier' },
+    less = { 'prettier' },
     go = { 'gofmt', 'goimports' },
     dart = { 'dart_format' },
   },
