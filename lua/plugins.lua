@@ -579,14 +579,34 @@ require('flutter-bloc').setup({
 })
 
 -- The flutter-tools ftplugin/dart/init.lua doesn't fire under vim.pack,
--- so we explicitly start the Dart LSP on first dart file open.
-local _dart_lsp_attached = false
+-- so we explicitly start the Dart LSP. Guard on live clients, not a flag:
+-- a failed attach stays retryable, and :restart / session restore may
+-- reopen dart buffers without refiring FileType.
+local function dart_attach()
+  if #vim.lsp.get_clients({ name = 'dartls' }) > 0 then return end
+  if vim.fn.executable('flutter') == 0 and vim.fn.executable('dart') == 0 then
+    vim.notify('flutter/dart not on PATH — dartls not started', vim.log.levels.ERROR)
+    return
+  end
+  require('flutter-tools.lsp').attach()
+end
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'dart',
-  once = true,
-  callback = function()
-    if _dart_lsp_attached then return end
-    _dart_lsp_attached = true
-    require('flutter-tools.lsp').attach()
-  end,
+  callback = dart_attach,
 })
+
+-- Catch-up for dart buffers already open at startup (:restart, session
+-- restore). Scheduled so it runs after session restore on VimEnter.
+vim.api.nvim_create_autocmd('VimEnter', {
+  once = true,
+  callback = vim.schedule_wrap(function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype == 'dart' then
+        dart_attach()
+        return
+      end
+    end
+  end),
+})
+
+vim.api.nvim_create_user_command('DartAttach', dart_attach, { desc = 'Retry dartls attach (flutter-tools)' })
