@@ -103,6 +103,9 @@ vim.pack.add({
   { src = "https://github.com/wa11breaker/flutter-bloc.nvim" },
   { src = "https://github.com/nvimtools/none-ls.nvim" },
 
+  -- Markdown rendering (in-buffer, on by default)
+  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+
   --LivePreview (pure Lua, no Node runtime)
   { src = "https://github.com/brianhuster/live-preview.nvim" },
 })
@@ -560,6 +563,11 @@ require('livepreview.config').set({
   port = 8080,
   picker = 'telescope',
 })
+
+----------------------------------------------------------------------
+-- Markdown rendering (on by default, :RenderMarkdown toggle when needed)
+----------------------------------------------------------------------
+require('render-markdown').setup({ enabled = true })
 
 ----------------------------------------------------------------------
 -- Flutter/Dart (config applied eagerly; LSP starts on first .dart via autocmd)
