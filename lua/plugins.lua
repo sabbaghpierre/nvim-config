@@ -196,19 +196,19 @@ vim.keymap.set('x', '<leader>su', '<Plug>(nvim-surround-visual)', { desc = 'Surr
 require('neoscroll').setup({
   hide_cursor = true,
   easing = 'sine',
-  -- <C-d>/<C-u> get custom full-window-height mappings below
+  -- <C-d>/<C-u> get custom half-window-height mappings below
   mappings = { '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb' },
 })
 
--- <C-d>/<C-u> scroll by full window height, 180ms
+-- <C-d>/<C-u> scroll by half window height, 180ms
 local neoscroll = require('neoscroll')
 local modes = { 'n', 'v', 'x' }
 vim.keymap.set(modes, '<C-d>', function()
-  neoscroll.scroll(vim.api.nvim_win_get_height(0), { duration = 180 })
-end, { desc = 'Scroll full window down' })
+  neoscroll.scroll(math.ceil(vim.api.nvim_win_get_height(0) / 2), { duration = 180 })
+end, { desc = 'Scroll half window down' })
 vim.keymap.set(modes, '<C-u>', function()
-  neoscroll.scroll(-vim.api.nvim_win_get_height(0), { duration = 180 })
-end, { desc = 'Scroll full window up' })
+  neoscroll.scroll(-math.ceil(vim.api.nvim_win_get_height(0) / 2), { duration = 180 })
+end, { desc = 'Scroll half window up' })
 
 ----------------------------------------------------------------------
 -- Telescope
