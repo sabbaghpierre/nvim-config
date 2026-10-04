@@ -5,6 +5,9 @@ vim.lsp.config('*', {
 
 -- Enable LSP servers (each config lives in lsp/<name>.lua)
 -- Servers only start when a buffer matching their filetypes is opened.
+-- NOTE: Dart/Flutter LSP is owned by flutter-tools.nvim (starts via FileType autocmd),
+-- not enabled here. Blink.cmp capabilities are passed explicitly in
+-- flutter-tools.setup({ lsp.capabilities }).
 vim.lsp.enable({
   'lua_ls',
   'gopls',

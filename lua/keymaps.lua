@@ -187,6 +187,9 @@ keymap('n', '<leader>Fe', flutter_cmd('FlutterEmulators'), { desc = '[F]lutter [
 keymap('n', '<leader>Fl', flutter_cmd('FlutterReload'), { desc = '[F]lutter Re[l]oad' })
 keymap('n', '<leader>FR', flutter_cmd('FlutterRestart'), { desc = '[F]lutter [R]estart (hot)' })
 keymap('n', '<leader>Ft', flutter_cmd('FlutterLogToggle'), { desc = '[F]lutter Log [T]oggle' })
+keymap('n', '<leader>Fo', flutter_cmd('FlutterOutlineToggle'), { desc = '[F]lutter [O]utline Toggle' })
+keymap('n', '<leader>Fv', flutter_cmd('FlutterDevTools'), { desc = '[F]lutter De[v]Tools' })
+keymap('n', '<leader>Fp', flutter_cmd('FlutterPubGet'), { desc = '[F]lutter [P]ub Get' })
 
 ----------------------------------------------------------------------
 -- LivePreview

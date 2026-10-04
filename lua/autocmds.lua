@@ -6,7 +6,7 @@ autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = augroup('highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
@@ -29,6 +29,15 @@ autocmd('BufWritePre', {
       end
     end
     vim.lsp.buf.format({ async = false })
+  end,
+})
+
+-- Dart: auto-format on save via dart format (conform)
+autocmd('BufWritePre', {
+  pattern = '*.dart',
+  group = augroup('dart-auto-format', { clear = true }),
+  callback = function()
+    require('conform').format({ async = false, lsp_format = 'fallback' })
   end,
 })
 

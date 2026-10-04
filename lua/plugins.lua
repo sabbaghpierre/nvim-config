@@ -103,6 +103,9 @@ vim.pack.add({
   { src = "https://github.com/wa11breaker/flutter-bloc.nvim" },
   { src = "https://github.com/nvimtools/none-ls.nvim" },
 
+  -- Markdown rendering (in-buffer, on by default)
+  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+
   --LivePreview (pure Lua, no Node runtime)
   { src = "https://github.com/brianhuster/live-preview.nvim" },
 })
@@ -180,12 +183,10 @@ require('fidget').setup({})
 vim.g.nvim_surround_no_mappings = true
 require('nvim-surround').setup({})
 vim.keymap.set('n', 'sa', '<Plug>(nvim-surround-normal)', { desc = 'Surround add' })
-vim.keymap.set('n', 'saa', '<Plug>(nvim-surround-normal-cur)', { desc = 'Surround add line' })
 vim.keymap.set('n', 'sd', '<Plug>(nvim-surround-delete)', { desc = 'Surround delete' })
 vim.keymap.set('n', 'sr', '<Plug>(nvim-surround-change)', { desc = 'Surround replace' })
 vim.keymap.set('x', 'S', '<Plug>(nvim-surround-visual)', { desc = 'Surround visual' })
 vim.keymap.set('n', '<leader>sua', '<Plug>(nvim-surround-normal)', { desc = 'Surround add' })
-vim.keymap.set('n', '<leader>suA', '<Plug>(nvim-surround-normal-cur)', { desc = 'Surround add line' })
 vim.keymap.set('n', '<leader>sud', '<Plug>(nvim-surround-delete)', { desc = 'Surround delete' })
 vim.keymap.set('n', '<leader>sur', '<Plug>(nvim-surround-change)', { desc = 'Surround replace' })
 vim.keymap.set('x', '<leader>su', '<Plug>(nvim-surround-visual)', { desc = 'Surround visual' })
@@ -487,13 +488,18 @@ vim.api.nvim_set_hl(0, 'MultiCursorDisabledSign', { link = 'SignColumn' })
 -- Formatting & Linting
 ----------------------------------------------------------------------
 require('conform').setup({
-  notify_on_error = false,
+  notify_on_error = true,
   formatters_by_ft = {
     lua = { 'stylua' },
     javascript = { 'prettier' },
     javascriptreact = { 'prettier' },
     typescript = { 'prettier' },
     typescriptreact = { 'prettier' },
+    html = { 'prettier' },
+    htmlangular = { 'prettier' },
+    css = { 'prettier' },
+    scss = { 'prettier' },
+    less = { 'prettier' },
     go = { 'gofmt', 'goimports' },
     dart = { 'dart_format' },
   },
@@ -559,38 +565,61 @@ require('livepreview.config').set({
 })
 
 ----------------------------------------------------------------------
--- Flutter/Dart (deferred until a Dart file is opened)
+-- Markdown rendering (on by default, :RenderMarkdown toggle when needed)
 ----------------------------------------------------------------------
-local flutter_loaded = false
+require('render-markdown').setup({ enabled = true })
+
+----------------------------------------------------------------------
+-- Flutter/Dart (config applied eagerly; LSP starts on first .dart via autocmd)
+----------------------------------------------------------------------
+require('flutter-tools').setup({
+  fvm = false,
+  dev_log = { open_cmd = 'botright 15split' },
+  lsp = {
+    settings = {
+      lineLength = 125,
+      completeFunctionCalls = true,
+      enableSnippets = true,
+    },
+    capabilities = require('blink.cmp').get_lsp_capabilities(),
+  },
+})
+
+require('flutter-bloc').setup({
+  bloc_type = 'default',
+  use_sealed_classes = false,
+  enable_code_actions = true,
+})
+
+-- The flutter-tools ftplugin/dart/init.lua doesn't fire under vim.pack,
+-- so we explicitly start the Dart LSP. Guard on live clients, not a flag:
+-- a failed attach stays retryable, and :restart / session restore may
+-- reopen dart buffers without refiring FileType.
+local function dart_attach()
+  if #vim.lsp.get_clients({ name = 'dartls' }) > 0 then return end
+  if vim.fn.executable('flutter') == 0 and vim.fn.executable('dart') == 0 then
+    vim.notify('flutter/dart not on PATH — dartls not started', vim.log.levels.ERROR)
+    return
+  end
+  require('flutter-tools.lsp').attach()
+end
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'dart',
-  callback = function()
-    if flutter_loaded then return end
-    flutter_loaded = true
-
-    require('null-ls').setup({
-      sources = { require('flutter-bloc').code_actions },
-    })
-    require('flutter-bloc').setup({
-      bloc_type = 'default',
-      use_sealed_classes = false,
-      enable_code_actions = true,
-    })
-    require('flutter-tools').setup({
-      dev_log = { open_cmd = 'botright 15split' },
-      lsp = {
-        settings = {
-          dart = {
-            lineLength = 125,
-            completeFunctionCalls = true,
-            enableSnippets = true,
-          },
-        },
-      },
-      formatting = {
-        command = 'dart',
-        args = { 'format', '--line-length', '125' },
-      },
-    })
-  end,
+  callback = dart_attach,
 })
+
+-- Catch-up for dart buffers already open at startup (:restart, session
+-- restore). Scheduled so it runs after session restore on VimEnter.
+vim.api.nvim_create_autocmd('VimEnter', {
+  once = true,
+  callback = vim.schedule_wrap(function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype == 'dart' then
+        dart_attach()
+        return
+      end
+    end
+  end),
+})
+
+vim.api.nvim_create_user_command('DartAttach', dart_attach, { desc = 'Retry dartls attach (flutter-tools)' })
