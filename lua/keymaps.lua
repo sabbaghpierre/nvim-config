@@ -18,6 +18,13 @@ keymap('n', '<leader>-', '<cmd>split<CR>', { desc = 'Split horizontal' })
 keymap('n', '<leader>|', '<cmd>vsplit<CR>', { desc = 'Split vertical' })
 
 ----------------------------------------------------------------------
+-- Find in buffer (vsfind.nvim, VSCode-style floating find box)
+----------------------------------------------------------------------
+keymap({ 'n', 'x' }, '/', function()
+  require('vsfind').open()
+end, { desc = 'Find in buffer' })
+
+----------------------------------------------------------------------
 -- Telescope
 ----------------------------------------------------------------------
 local builtin = require('telescope.builtin')
@@ -202,6 +209,17 @@ keymap('n', '<leader>lS', '<cmd>LivePreview close<cr>', { desc = 'Live Preview S
 -- Plugin updates
 ----------------------------------------------------------------------
 keymap('n', '<leader>ps', '<cmd>lua vim.pack.update()<CR>', { desc = '[P]ack update plugin[s]' })
+keymap('n', '<leader>pu', function()
+  local names = {}
+  for _, plug in ipairs(vim.pack.get()) do
+    if plug.active then names[#names + 1] = plug.spec.name end
+  end
+  table.sort(names)
+  vim.ui.select(names, { prompt = 'Update plugin:' }, function(choice)
+    if not choice then return end
+    vim.pack.update({ choice })
+  end)
+end, { desc = '[P]ack [U]pdate one plugin' })
 keymap('n', '<leader>ph', '<cmd>checkhealth vim.pack<CR>', { desc = '[P]ack [H]ealth' })
 keymap('n', '<leader>pd', function()
   local names = {}

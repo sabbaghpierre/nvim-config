@@ -91,6 +91,7 @@ vim.pack.add({
 
   -- Search and Replace                                              -- requires: ripgrep
   { src = "https://github.com/MagicDuck/grug-far.nvim" },
+  { src = "https://github.com/sabbaghpierre/vsfind.nvim" },
 
   -- Session
   { src = "https://github.com/rmagatti/auto-session" },
